@@ -1,6 +1,7 @@
 import unittest
 
-from exchange.InstrumentExchange import InstrumentExchange
+from core.exchange.InstrumentExchange import InstrumentExchange
+
 from exchange.InstrumentExchangesHolder import InstrumentExchangesHolder
 
 

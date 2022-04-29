@@ -1,4 +1,4 @@
-from exchange.InstrumentExchange import InstrumentExchange
+from core.exchange.InstrumentExchange import InstrumentExchange
 
 
 class InstrumentExchangesHolder:
