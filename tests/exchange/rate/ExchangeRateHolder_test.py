@@ -66,6 +66,11 @@ class ExchangeRateTestCase(unittest.TestCase):
         self.assertEqual(len(exchange_rates['ETH']), 1)
         self.assertEqual(len(exchange_rates['ETH']['USDT']), 1)
 
+    def test_should_not_get_exchange_rates(self):
+        exchange_rate_holder = ExchangeRateHolder()
+        exchange_rates = exchange_rate_holder.get('NON-EXISTENT')
+        self.assertIsNone(exchange_rates)
+
 
 if __name__ == '__main__':
     unittest.main()
