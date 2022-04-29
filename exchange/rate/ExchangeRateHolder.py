@@ -20,3 +20,6 @@ class ExchangeRateHolder:
     def get_rate(self, instrument, instrument_to, instant):
         rates = [ir.rate for ir in self.exchange_rates[instrument][instrument_to] if ir.instant == instant]
         return rates[0]
+
+    def get_rates(self, instrument, to_instrument):
+        return self.exchange_rates[instrument][to_instrument]

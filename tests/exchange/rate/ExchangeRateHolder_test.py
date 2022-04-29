@@ -4,6 +4,7 @@ from core.exchange.ExchangeRate import ExchangeRate
 from core.number.BigFloat import BigFloat
 
 from exchange.rate.ExchangeRateHolder import ExchangeRateHolder
+from exchange.rate.InstantRate import InstantRate
 
 
 class ExchangeRateTestCase(unittest.TestCase):
@@ -25,6 +26,15 @@ class ExchangeRateTestCase(unittest.TestCase):
         rate_2 = exchange_rate_holder.get_rate('BTC', 'USDT', 2)
         self.assertEqual(rate_1, BigFloat('38835.34'))
         self.assertEqual(rate_2, BigFloat('38719.72'))
+
+    def test_should_obtain_rates_for_exchange(self):
+        exchange_rate_holder = ExchangeRateHolder()
+        exchange_rate_holder.add(ExchangeRate('BTC', 'USDT', BigFloat('38835.34')), 1)
+        exchange_rate_holder.add(ExchangeRate('BTC', 'USDT', BigFloat('38719.72')), 2)
+        rates = exchange_rate_holder.get_rates('BTC', 'USDT')
+        self.assertEqual(len(rates), 2)
+        self.assertEqual(rates[0], InstantRate(1, BigFloat('38835.34')))
+        self.assertEqual(rates[1], InstantRate(2, BigFloat('38719.72')))
 
 
 if __name__ == '__main__':
