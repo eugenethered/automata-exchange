@@ -69,7 +69,7 @@ class ExchangeRateTestCase(unittest.TestCase):
     def test_should_not_get_exchange_rates(self):
         exchange_rate_holder = ExchangeRateHolder()
         exchange_rates = exchange_rate_holder.get('NON-EXISTENT')
-        self.assertIsNone(exchange_rates)
+        self.assertEqual(exchange_rates, {}, 'should be empty dict')
 
 
 if __name__ == '__main__':

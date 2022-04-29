@@ -24,7 +24,7 @@ class ExchangeRateHolder:
         if instrument is None:
             return self.exchange_rates
         if instrument not in self.exchange_rates:
-            return None
+            return {}
         return dict([(k, v) for k, v in self.exchange_rates.items() if k == instrument])
 
     def get_rate(self, instrument, instrument_to, instant):
