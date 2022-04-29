@@ -36,6 +36,15 @@ class ExchangeRateTestCase(unittest.TestCase):
         self.assertEqual(rates[0], InstantRate(1, BigFloat('38835.34')))
         self.assertEqual(rates[1], InstantRate(2, BigFloat('38719.72')))
 
+    def test_should_not_get_rates_for_non_existent_instruments(self):
+        exchange_rate_holder = ExchangeRateHolder()
+        rate = exchange_rate_holder.get_rate('BTC', 'USDT', 1)
+        self.assertIsNone(rate)
+        exchange_rate_holder = ExchangeRateHolder()
+        exchange_rate_holder.add(ExchangeRate('BTC', 'USDT', BigFloat('38835.34')), 1)
+        rate = exchange_rate_holder.get_rate('BTC', 'ETH', 1)
+        self.assertIsNone(rate)
+
 
 if __name__ == '__main__':
     unittest.main()
