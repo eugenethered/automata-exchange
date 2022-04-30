@@ -71,6 +71,16 @@ class ExchangeRateTestCase(unittest.TestCase):
         exchange_rates = exchange_rate_holder.get('NON-EXISTENT')
         self.assertEqual(exchange_rates, {}, 'should be empty dict')
 
+    def test_should_initialize_exchange_rates(self):
+        exchange_rate_holder = ExchangeRateHolder([
+            (ExchangeRate('BTC', 'USDT', BigFloat('38835.34')), 1),
+            (ExchangeRate('BTC', 'USDT', BigFloat('38719.72')), 2),
+            (ExchangeRate('ETH', 'USDT', BigFloat('2861.62')), 1)
+        ])
+        self.assertEqual(exchange_rate_holder.get_rate('BTC', 'USDT', 1), BigFloat('38835.34'))
+        self.assertEqual(exchange_rate_holder.get_rate('BTC', 'USDT', 2), BigFloat('38719.72'))
+        self.assertEqual(exchange_rate_holder.get_rate('ETH', 'USDT', 1), BigFloat('2861.62'))
+
 
 if __name__ == '__main__':
     unittest.main()
