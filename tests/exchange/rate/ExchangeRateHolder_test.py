@@ -81,6 +81,19 @@ class ExchangeRateTestCase(unittest.TestCase):
         self.assertEqual(exchange_rate_holder.get_rate('BTC', 'USDT', 2), BigFloat('38719.72'))
         self.assertEqual(exchange_rate_holder.get_rate('ETH', 'USDT', 1), BigFloat('2861.62'))
 
+    def test_should_initialize_multiple_exchange_rates(self):
+        exchange_rate_holder = ExchangeRateHolder([
+            (ExchangeRate('OTC', 'USDT', BigFloat('150.00')), 2),
+            (ExchangeRate('OTC', 'USDT', BigFloat('100.00')), 1),
+            (ExchangeRate('OTC', 'BUSD', BigFloat('100.00')), 2),
+            (ExchangeRate('OTC', 'BUSD', BigFloat('150.00')), 1)
+        ])
+        print(f'result? -> {exchange_rate_holder.get()}')
+        self.assertEqual(exchange_rate_holder.get_rate('OTC', 'USDT', 2), BigFloat('150.00'))
+        self.assertEqual(exchange_rate_holder.get_rate('OTC', 'USDT', 1), BigFloat('100.00'))
+        self.assertEqual(exchange_rate_holder.get_rate('OTC', 'BUSD', 2), BigFloat('100.00'))
+        self.assertEqual(exchange_rate_holder.get_rate('OTC', 'BUSD', 1), BigFloat('150.00'))
+
 
 if __name__ == '__main__':
     unittest.main()

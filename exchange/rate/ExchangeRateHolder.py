@@ -24,11 +24,14 @@ class ExchangeRateHolder:
         self.__append(instrument, to_instrument, instant_rate)
 
     def __append(self, instrument, to_instrument, instant_rate):
-        if instrument not in self.exchange_rates:
-            self.exchange_rates[instrument] = {to_instrument: [instant_rate]}
+        if instrument in self.exchange_rates:
+            if to_instrument in self.exchange_rates[instrument]:
+                instant_rates = self.exchange_rates[instrument][to_instrument]
+                instant_rates.append(instant_rate)
+            else:
+                self.exchange_rates[instrument][to_instrument] = [instant_rate]
         else:
-            instant_rates = self.exchange_rates[instrument][to_instrument]
-            instant_rates.append(instant_rate)
+            self.exchange_rates[instrument] = {to_instrument: [instant_rate]}
 
     def get(self, instrument=None):
         if instrument is None:
