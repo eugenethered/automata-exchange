@@ -46,4 +46,6 @@ class ExchangeRateHolder:
         return next(ir.rate for ir in self.exchange_rates[instrument][instrument_to] if ir.instant == instant)
 
     def get_rates(self, instrument, to_instrument):
+        if instrument not in self.exchange_rates or to_instrument not in self.exchange_rates[instrument]:
+            return []
         return self.exchange_rates[instrument][to_instrument]

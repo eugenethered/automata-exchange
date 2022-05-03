@@ -36,6 +36,16 @@ class ExchangeRateTestCase(unittest.TestCase):
         self.assertEqual(rates[0], InstantRate(1, BigFloat('38835.34')))
         self.assertEqual(rates[1], InstantRate(2, BigFloat('38719.72')))
 
+    def test_should_not_obtain_rates_for_instruments(self):
+        exchange_rate_holder = ExchangeRateHolder()
+        rates = exchange_rate_holder.get_rates('BTC', 'USDT')
+        self.assertEqual(len(rates), 0)
+        exchange_rate_holder = ExchangeRateHolder()
+        exchange_rate_holder.add(ExchangeRate('BTC', 'USDT', BigFloat('38835.34')), 1)
+        exchange_rate_holder.add(ExchangeRate('BTC', 'USDT', BigFloat('38719.72')), 2)
+        rates = exchange_rate_holder.get_rates('BTC', 'OTC')
+        self.assertEqual(len(rates), 0)
+
     def test_should_not_get_rates_for_non_existent_instruments(self):
         exchange_rate_holder = ExchangeRateHolder()
         rate = exchange_rate_holder.get_rate('BTC', 'USDT', 1)
@@ -88,7 +98,6 @@ class ExchangeRateTestCase(unittest.TestCase):
             (ExchangeRate('OTC', 'BUSD', BigFloat('100.00')), 2),
             (ExchangeRate('OTC', 'BUSD', BigFloat('150.00')), 1)
         ])
-        print(f'result? -> {exchange_rate_holder.get()}')
         self.assertEqual(exchange_rate_holder.get_rate('OTC', 'USDT', 2), BigFloat('150.00'))
         self.assertEqual(exchange_rate_holder.get_rate('OTC', 'USDT', 1), BigFloat('100.00'))
         self.assertEqual(exchange_rate_holder.get_rate('OTC', 'BUSD', 2), BigFloat('100.00'))
