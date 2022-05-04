@@ -39,6 +39,16 @@ class InstrumentExchangesHolderTestCase(unittest.TestCase):
         exchanges = holder.get('NON-EXISTENT')
         self.assertIsNone(exchanges)
 
+    def test_should_get_all_exchanges(self):
+        holder = InstrumentExchangesHolder()
+        holder.add(InstrumentExchange('BTC', 'USDT'))
+        holder.add(InstrumentExchange('BTC', 'ETH'))
+        holder.add(InstrumentExchange('BTC', 'GBP'))
+        holder.add(InstrumentExchange('ETH', 'USDT'))
+        holder.add(InstrumentExchange('ETH', 'GBP'))
+        exchanges = holder.get_all()
+        self.assertEqual(len(exchanges), 5)
+
 
 if __name__ == '__main__':
     unittest.main()

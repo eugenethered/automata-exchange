@@ -18,3 +18,6 @@ class InstrumentExchangesHolder:
         if instrument not in self.exchanges:
             return None
         return list([InstrumentExchange(k, vi) for k, v in self.exchanges.items() if k == instrument for vi in v])
+
+    def get_all(self):
+        return list([InstrumentExchange(k, vi) for k, v in self.exchanges.items() for vi in v])

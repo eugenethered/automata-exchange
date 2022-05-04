@@ -1,4 +1,4 @@
-# Automata Exchange Rates
+# Automata Exchange
 
 ## Packaging
 `python3 -m build`
