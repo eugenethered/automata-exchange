@@ -12,7 +12,8 @@ class InstrumentExchangesHolder:
             self.exchanges[instrument] = [to_instrument]
         else:
             instrument_exchanges = self.exchanges[instrument]
-            instrument_exchanges.append(to_instrument)
+            if to_instrument not in instrument_exchanges:
+                instrument_exchanges.append(to_instrument)
 
     def get(self, instrument):
         if instrument not in self.exchanges:

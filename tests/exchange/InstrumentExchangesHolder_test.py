@@ -49,6 +49,13 @@ class InstrumentExchangesHolderTestCase(unittest.TestCase):
         exchanges = holder.get_all()
         self.assertEqual(len(exchanges), 5)
 
+    def test_should_not_add_duplicate_instrument_exchanges(self):
+        holder = InstrumentExchangesHolder()
+        holder.add(InstrumentExchange('BTC', 'USDT'))
+        holder.add(InstrumentExchange('BTC', 'USDT'))
+        exchanges = holder.get_all()
+        self.assertEqual(len(exchanges), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
